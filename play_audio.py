@@ -17,8 +17,11 @@ def launch():
     return question(text).reprompt(prompt).simple_card(card_title, text)
 
 @ask.intent('PlayIntent')
-def demo(genre):
+def demo(genre, moments):
 
+    if moments=="entrance":
+        speech='it works, you called the playintent with the my entrance slot!'
+        stream_url = 'https://feeds.soundcloud.com/stream/427589469-user-734136599-thechno-1.mp3'
     if genre=="techno":
         speech = "here is your {} track".format(genre)
         stream_url = 'https://feeds.soundcloud.com/stream/427589469-user-734136599-thechno-1.mp3'
