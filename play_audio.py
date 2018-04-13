@@ -1,5 +1,6 @@
 import logging
 import os
+from utils import *
 
 from flask import Flask, json, render_template
 from flask_ask import Ask, request, session, question, statement, context, audio, current_stream
@@ -11,6 +12,7 @@ logging.getLogger('flask_ask').setLevel(logging.INFO)
 
 @ask.launch
 def launch():
+    get_mp3_urls()
     card_title = 'Audio Example'
     text = 'Welcome to an audio example. What do you want to hear?'
     prompt = 'I didnt get it?what do you want to hear?'
