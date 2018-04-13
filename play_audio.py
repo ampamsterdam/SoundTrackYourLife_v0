@@ -19,6 +19,8 @@ def launch():
 @ask.intent('PlayIntent')
 def demo(genre, moments):
 
+
+
     if moments=="entrance":
         speech='it works, you called the playintent with the my entrance slot!'
         stream_url = 'https://feeds.soundcloud.com/stream/427589469-user-734136599-thechno-1.mp3'

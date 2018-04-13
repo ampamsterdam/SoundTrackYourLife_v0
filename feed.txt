@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
+      <channel>
+        <atom:link href="http://feeds.soundcloud.com/users/soundcloud:users:305490538/sounds.rss" rel="self" type="application/rss+xml"/>
+        <atom:link href="http://feeds.soundcloud.com/users/soundcloud:users:305490538/sounds.rss?before=423921354" rel="next" type="application/rss+xml"/>
+        <title>Copo Solari - Guitar</title>
+        <link>http://soundcloud.com/user-734136599</link>
+        <pubDate>Tue, 10 Apr 2018 09:58:20 +0000</pubDate>
+        <lastBuildDate>Tue, 10 Apr 2018 09:58:20 +0000</lastBuildDate>
+        <ttl>60</ttl>
+        <language>en</language>
+        <copyright>All rights reserved</copyright>
+        <webMaster>feeds@soundcloud.com (SoundCloud Feeds)</webMaster>
+        <description>Podcast by Copo Solari - Guitar</description>
+        <itunes:subtitle>Podcast by Copo Solari - Guitar</itunes:subtitle>
+        <itunes:owner>
+          <itunes:name>Copo Solari - Guitar</itunes:name>
+          <itunes:email>feeds@soundcloud.com</itunes:email>
+        </itunes:owner>
+        <itunes:author>Copo Solari - Guitar</itunes:author>
+        <itunes:explicit>no</itunes:explicit>
+        <itunes:image href="http://a1.sndcdn.com/images/default_avatar_original.png"/>
+        <image>
+          <url>http://a1.sndcdn.com/images/default_avatar_original.png</url>
+          <title>Copo Solari - Guitar</title>
+          <link>http://soundcloud.com/user-734136599</link>
+        </image>
+        <itunes:category text="Music"/>
+        <item>
+      <guid isPermaLink="false">tag:soundcloud,2010:tracks/427593582</guid>
+      <title>VoorBrian7 WBert3</title>
+      <pubDate>Tue, 10 Apr 2018 09:58:20 +0000</pubDate>
+      <link>https://soundcloud.com/user-734136599/voorbrian7-wbert3</link>
+      <itunes:duration>00:03:30</itunes:duration>
+      <itunes:author>Copo Solari - Guitar</itunes:author>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:summary>VoorBrian7 WBert3 by Copo Solari - Guitar</itunes:summary>
+      <itunes:subtitle>VoorBrian7 WBert3 by Copo Solari - Guitar</itunes:subtitle>
+      <description>VoorBrian7 WBert3 by Copo Solari - Guitar</description>
+      <enclosure type="audio/mpeg" url="http://feeds.soundcloud.com/stream/427593582-user-734136599-voorbrian7-wbert3.mp3" length="5063492"/>
+      <itunes:image href="http://a1.sndcdn.com/images/default_avatar_original.png"/>
+    </item><item>
+      <guid isPermaLink="false">tag:soundcloud,2010:tracks/427589469</guid>
+      <title>THECHNO 1</title>
+      <pubDate>Tue, 10 Apr 2018 09:40:34 +0000</pubDate>
+      <link>https://soundcloud.com/user-734136599/thechno-1</link>
+      <itunes:duration>00:01:22</itunes:duration>
+      <itunes:author>Copo Solari - Guitar</itunes:author>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:summary>THECHNO 1 by Copo Solari - Guitar</itunes:summary>
+      <itunes:subtitle>THECHNO 1 by Copo Solari - Guitar</itunes:subtitle>
+      <description>THECHNO 1 by Copo Solari - Guitar</description>
+      <enclosure type="audio/mpeg" url="http://feeds.soundcloud.com/stream/427589469-user-734136599-thechno-1.mp3" length="1972684"/>
+      <itunes:image href="http://a1.sndcdn.com/images/default_avatar_original.png"/>
+    </item><item>
+      <guid isPermaLink="false">tag:soundcloud,2010:tracks/426580746</guid>
+      <title>Overtune</title>
+      <pubDate>Sun, 08 Apr 2018 14:03:48 +0000</pubDate>
+      <link>https://soundcloud.com/user-734136599/overtune</link>
+      <itunes:duration>00:02:38</itunes:duration>
+      <itunes:author>Copo Solari - Guitar</itunes:author>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:summary>Overtune by Copo Solari - Guitar</itunes:summary>
+      <itunes:subtitle>Overtune by Copo Solari - Guitar</itunes:subtitle>
+      <description>Overtune by Copo Solari - Guitar</description>
+      <enclosure type="audio/mpeg" url="http://feeds.soundcloud.com/stream/426580746-user-734136599-overtune.mp3" length="3642086"/>
+      <itunes:image href="http://a1.sndcdn.com/images/default_avatar_original.png"/>
+    </item><item>
+      <guid isPermaLink="false">tag:soundcloud,2010:tracks/423921354</guid>
+      <title>Fremito</title>
+      <pubDate>Mon, 02 Apr 2018 23:47:53 +0000</pubDate>
+      <link>https://soundcloud.com/user-734136599/fremito</link>
+      <itunes:duration>00:04:47</itunes:duration>
+      <itunes:author>Copo Solari - Guitar</itunes:author>
+      <itunes:explicit>no</itunes:explicit>
+      <itunes:summary>Fremito by Copo Solari - Guitar</itunes:summary>
+      <itunes:subtitle>Fremito by Copo Solari - Guitar</itunes:subtitle>
+      <description>Fremito by Copo Solari - Guitar</description>
+      <enclosure type="audio/mpeg" url="http://feeds.soundcloud.com/stream/423921354-user-734136599-fremito.mp3" length="2302152"/>
+      <itunes:image href="http://a1.sndcdn.com/images/default_avatar_original.png"/>
+    </item>
+      </channel>
+    </rss>
