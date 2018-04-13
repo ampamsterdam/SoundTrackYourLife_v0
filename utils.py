@@ -1,6 +1,6 @@
 import os
 import re
 
-def get_mp3_url():
-    feed=with open('feed.txt') as input
+def get_mp3_url_from server():
+    server_address=''
 
