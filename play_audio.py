@@ -12,27 +12,31 @@ logging.getLogger('flask_ask').setLevel(logging.INFO)
 
 @ask.launch
 def launch():
-    get_mp3_urls()
+    #get_mp3_urls()
     card_title = 'Audio Example'
-    text = 'Welcome to an audio example. What do you want to hear?'
+    text = 'Welcome, what do you want to hear?'
     prompt = 'I didnt get it?what do you want to hear?'
     return question(text).reprompt(prompt).simple_card(card_title, text)
 
 @ask.intent('PlayIntent')
-def demo(genre, moments):
+def demo(genre,moments):
 
-
-
-    if moments=="entrance":
-        speech='it works, you called the playintent with the my entrance slot!'
+    if moments == "morning":
+        speech = 'enjoy your morning!'
+        stream_url = 'https://feeds.soundcloud.com/stream/429202500-user-262789202-morning.mp3'
+    if moments == "entrance":
+        speech = 'it works, you called the playintent with the my entrance slot of ey soundtrack!'
         stream_url = 'https://feeds.soundcloud.com/stream/427589469-user-734136599-thechno-1.mp3'
-    if genre=="techno":
+    if moments == "boring":
+        speech = 'it works, you called the playintent with the boring conversation slot of ey soundtrack!'
+        stream_url = 'https://feeds.soundcloud.com/stream/429202560-user-262789202-conversation.mp3'
+    if genre == "techno":
         speech = "here is your {} track".format(genre)
         stream_url = 'https://feeds.soundcloud.com/stream/427589469-user-734136599-thechno-1.mp3'
-    if genre=="acoustic":
+    if genre == "acoustic":
         speech = "here is your {} track".format(genre)
         stream_url = 'https://feeds.soundcloud.com/stream/426580746-user-734136599-overtune.mp3'
-    if genre=="jazz":
+    if genre == "jazz":
         speech = "here is your {} track".format(genre)
         stream_url = 'https://feeds.soundcloud.com/stream/423921354-user-734136599-fremito.mp3'
     return audio(speech).play(stream_url, offset=0)
