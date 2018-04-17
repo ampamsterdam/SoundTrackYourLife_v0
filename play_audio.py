@@ -1,6 +1,7 @@
 import logging
 import os
 from utils import *
+import time
 
 from flask import Flask, json, render_template
 from flask_ask import Ask, request, session, question, statement, context, audio, current_stream
@@ -23,15 +24,29 @@ def demo(moments):
 
     if moments == "morning":
         speech = 'enjoy your morning!'
-        stream_url = 'https://feeds.soundcloud.com/stream/429202500-user-262789202-morning.mp3'
+        stream_url = 'https://www.eysoundtrack.com/resources/audio/morning.mp3'
     if moments == "entrance":
-        speech = 'it works, you called the playintent with the my entrance slot of ey soundtrack!'
-        stream_url = 'https://feeds.soundcloud.com/stream/427589469-user-734136599-thechno-1.mp3'
+        speech = 'ladies and gentlemen..'
+        stream_url = 'https://www.eysoundtrack.com/resources/audio/entrance.mp3'
     if moments == "boring":
-        speech = 'it works, you called the playintent with the boring conversation slot of ey soundtrack!'
-        stream_url = 'https://feeds.soundcloud.com/stream/429202560-user-262789202-conversation.mp3'
+        speech = 'lets get some energy!'
+        stream_url = 'https://www.eysoundtrack.com/resources/audio/conversation.mp3'
+    if moments == "cleaning":
+        speech = 'enjoy your cleaning!'
+        stream_url ='https://www.eysoundtrack.com/resources/audio/cleaning.mp3'
+    if moments == "crowd":
+        speech = 'here we go!'
+        stream_url ='https://www.eysoundtrack.com/resources/audio/crowd.mp3'
+    if moments == "epic":
+        speech = 'this is epic..'
+        stream_url ='https://www.eysoundtrack.com/resources/audio/epic.mp3'
 
+    global t=time.time()
     return audio(speech).play(stream_url, offset=0)
+
+@ask.intent('PlayIntentMore')
+def demo2(moments,t):
+    print(t)
 
 @ask.intent('AMAZON.PauseIntent')
 def pause():
@@ -44,6 +59,11 @@ def resume():
 @ask.intent('AMAZON.StopIntent')
 def stop():
     return audio('stopping').clear_queue(stop=True)
+
+@ask.intent('AMAZON.CancelIntent')
+def cancel():
+    text='canceling'
+    return statement(text)
 
 # optional callbacks
 @ask.on_playback_started()
