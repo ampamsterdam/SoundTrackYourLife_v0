@@ -22,6 +22,10 @@ def launch():
 @ask.intent('PlayIntent')
 def demo(moments):
 
+    if moments == "dramatic":
+        speech = 'this is so...dramatic'
+        stream_url = 'https://www.eysoundtrack.com/resources/audio/dramaticAMP.mp3'
+
     if moments == "morning":
         speech = 'enjoy your morning!'
         stream_url = 'https://www.eysoundtrack.com/resources/audio/morning.mp3'
@@ -41,16 +45,37 @@ def demo(moments):
         speech = 'this is epic..'
         stream_url ='https://www.eysoundtrack.com/resources/audio/epic.mp3'
 
-    global t=time.time()
-    return audio(speech).play(stream_url, offset=0)
+    global t
+    t=time.time()
+    global globalmoment
+    globalmoment=moments
+
+    session.attributes['time']=t
+
+    return audio(speech).play(stream_url, shouldEndSession=True, offset=0)
 
 @ask.intent('PlayIntentMore')
-def demo2(moments,t):
-    print(t)
+def demo2(moments,mytime=0):
+    t2=time.time()
+    offset=t2-t
+    print(offset)
+    a=audio('').stop()
+    a=audio('').clear_queue(stop=True)
+    stream_url ='https://www.eysoundtrack.com/resources/audio/moredramaticAMP.mp3'
+    return audio('') .play(stream_url, shouldEndSession=True, offset=offset)
+
+def get_time():
+    return t
 
 @ask.intent('AMAZON.PauseIntent')
 def pause():
-    return audio('Paused the stream.').stop()
+    audio('stopping').clear_queue(stop=True)
+    text='what do you want?'
+    prompt='so, what do you want?'
+    card_title = 'Audio Example'
+    text = 'ok, what do you want?'
+    prompt = 'I didnt get it?what do you want?'
+    return question(text).reprompt(prompt).simple_card(card_title,text)
 
 @ask.intent('AMAZON.ResumeIntent')
 def resume():
@@ -63,7 +88,7 @@ def stop():
 @ask.intent('AMAZON.CancelIntent')
 def cancel():
     text='canceling'
-    return statement(text)
+    return audio('goodbye').stop()
 
 # optional callbacks
 @ask.on_playback_started()
@@ -71,6 +96,7 @@ def started(offset, token):
     _infodump('STARTED Audio Stream at {} ms'.format(offset))
     _infodump('Stream holds the token {}'.format(token))
     _infodump('STARTED Audio stream from {}'.format(current_stream.url))
+    return
 
 @ask.on_playback_stopped()
 def stopped(offset, token):
@@ -85,6 +111,7 @@ def nearly_finished():
 @ask.on_playback_finished()
 def stream_finished(token):
     _infodump('Playback has finished for stream with token {}'.format(token))
+
 
 @ask.session_ended
 def session_ended():
