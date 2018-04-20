@@ -13,7 +13,7 @@ logging.getLogger('flask_ask').setLevel(logging.INFO)
 
 @ask.launch
 def launch():
-    #get_mp3_urls()
+    get_mp3_urls()
     card_title = 'Audio Example'
     text = 'Welcome, what do you want to hear?'
     prompt = 'I didnt get it?what do you want to hear?'
