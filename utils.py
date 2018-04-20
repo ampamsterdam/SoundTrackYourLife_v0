@@ -9,7 +9,6 @@ def get_mp3_urls():
 #connect to the ftp server and lists the tracks names in the database
     ftp = ftplib.FTP("91.184.0.39")
     ftp.login("f307123", "8AsREl8I6T7X")
-
     urls=ftp.nlst('webspace/httpdocs/eysoundtrack.com/resources/audio')
     ftp.quit()
 

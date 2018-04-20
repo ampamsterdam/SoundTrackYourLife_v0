@@ -22,10 +22,10 @@ def launch():
 @ask.intent('PlayIntent')
 def demo(moments):
 
+#handles intent requests based on slot value
     if moments == "dramatic":
         speech = 'this is so...dramatic'
         stream_url = 'https://www.eysoundtrack.com/resources/audio/dramaticAMP.mp3'
-
     if moments == "morning":
         speech = 'enjoy your morning!'
         stream_url = 'https://www.eysoundtrack.com/resources/audio/morning.mp3'
@@ -45,11 +45,24 @@ def demo(moments):
         speech = 'this is epic..'
         stream_url ='https://www.eysoundtrack.com/resources/audio/epic.mp3'
 
+#handles partial or wrong intent requests
+    if moments == '' or moments == None:
+        speech = 'Sorry I didnt get it. could you repeat?'
+        prompt = 'Are you there?'
+        card_title = 'Slot error'
+        return question(speech).reprompt(prompt).simple_card(card_title, text)
+
+    if not('speech' in locals()) and not('speech' in globals()):
+        speech = 'Sorry I didnt get it. could you repeat?'
+        prompt = 'Are you there?'
+        card_title = 'Slot error'
+        return question(speech).reprompt(prompt).simple_card(card_title, text)
+
+#define time of playback start for PlayMoreIntent
     global t
     t=time.time()
     global globalmoment
     globalmoment=moments
-
     session.attributes['time']=t
 
     return audio(speech).play(stream_url, shouldEndSession=True, offset=0)
