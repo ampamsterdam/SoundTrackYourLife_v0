@@ -25,25 +25,25 @@ def demo(moments):
 #handles intent requests based on slot value
     if moments == "dramatic":
         speech = 'this is so...dramatic'
-        stream_url = 'https://www.eysoundtrack.com/resources/audio/dramaticAMP.mp3'
+        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/dramaticAMP.mp3'
     if moments == "morning":
         speech = 'enjoy your morning!'
-        stream_url = 'https://www.eysoundtrack.com/resources/audio/morning.mp3'
+        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/morning.mp3'
     if moments == "entrance":
         speech = 'ladies and gentlemen..'
-        stream_url = 'https://www.eysoundtrack.com/resources/audio/entrance.mp3'
+        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/entrance.mp3'
     if moments == "boring":
         speech = 'lets get some energy!'
-        stream_url = 'https://www.eysoundtrack.com/resources/audio/conversation.mp3'
+        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/conversation.mp3'
     if moments == "cleaning":
         speech = 'enjoy your cleaning!'
-        stream_url ='https://www.eysoundtrack.com/resources/audio/cleaning.mp3'
+        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/cleaning.mp3'
     if moments == "crowd":
         speech = 'here we go!'
-        stream_url ='https://www.eysoundtrack.com/resources/audio/crowd.mp3'
+        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/crowd.mp3'
     if moments == "epic":
         speech = 'this is epic..'
-        stream_url ='https://www.eysoundtrack.com/resources/audio/epic.mp3'
+        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/epic.mp3'
 
 #handles partial or wrong intent requests
     if moments == '' or moments == None:

@@ -3,13 +3,19 @@ import re
 import numpy as np
 from ftplib import FTP_TLS
 import ftplib
+import random
+import numpy as np
 
-def get_mp3_urls():
+def get_mp3_urls(moments, more=0):
 
 #connect to the ftp server and lists the tracks names in the database
     ftp = ftplib.FTP("91.184.0.39")
     ftp.login("f307123", "8AsREl8I6T7X")
-    urls=ftp.nlst('webspace/httpdocs/eysoundtrack.com/resources/audio')
+    urls=ftp.nlst('webspace/httpdocs/eysoundtrack.com/resources/audio/' + moments)
+
+    randomfile=random.choice(urls)
+    randomurl='https://www.eysoundtrack.com/resources/audio/' + moments + '/' + randomfile.split()[-1]
+    print(randomurl)
     ftp.quit()
 
 #alternatively
@@ -29,10 +35,10 @@ def get_mp3_urls():
     # mymatch=re.findall(r'http(.+?)mp3',contents)
     # allmymatches=['https' + mymatch[x] + 'mp3' for x in range(len(mymatch))]
     #
+    #
+    # basepath='https://eysoundtrack.com/resources/audio/'
+    # myfile=open('urls.txt','wr')
+    # myfile.writelines(["%s \n"%basepath + urls[x].split('/')[-1]  for x in range(len(urls))])
+    # myfile.close()
 
-    basepath='https://eysoundtrack.com/resources/audio/'
-    myfile=open('urls.txt','wr')
-    myfile.writelines(["%s \n"%basepath + urls[x].split('/')[-1]  for x in range(len(urls))])
-    myfile.close()
-
-    return 0
+    return randomurl
