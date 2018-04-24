@@ -11,10 +11,15 @@ def get_mp3_urls(moments, more=0):
 #connect to the ftp server and lists the tracks names in the database
     ftp = ftplib.FTP("91.184.0.39")
     ftp.login("f307123", "8AsREl8I6T7X")
-    urls=ftp.nlst('webspace/httpdocs/eysoundtrack.com/resources/audio/' + moments)
 
-    randomfile=random.choice(urls)
-    randomurl='https://www.eysoundtrack.com/resources/audio/' + moments + '/' + randomfile.split()[-1]
+    if more == 0:
+        urls=ftp.nlst('webspace/httpdocs/eysoundtrack.com/resources/audio/' + moments)
+        randomfile=random.choice(urls)
+        randomurl='https://www.eysoundtrack.com/resources/audio/' + moments + '/' + randomfile.split()[-1]
+    else:
+        urls=ftp.nlst('webspace/httpdocs/eysoundtrack.com/resources/audio/' + moments + '/more/' )
+        randomfile=random.choice(urls)
+        randomurl='https://www.eysoundtrack.com/resources/audio/' + moments + '/more/' + randomfile.split()[-1]
     print(randomurl)
     ftp.quit()
 

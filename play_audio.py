@@ -44,6 +44,12 @@ def demo(moments):
     if moments == "epic":
         speech = 'this is epic..'
         stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/epic.mp3'
+    if moments == "coffee":
+        speech = 'enjoy your coffee..'
+        stream_url = get_mp3_urls(moments)
+    # if moments == "happy":
+    #     speech = 'yessss'
+    # stream_url = get_mp3_urls(moments)
 
 #handles partial or wrong intent requests
     if moments == '' or moments == None:
@@ -69,12 +75,13 @@ def demo(moments):
 
 @ask.intent('PlayIntentMore')
 def demo2(moments,mytime=0):
+
     t2=time.time()
     offset=t2-t
     print(offset)
     a=audio('').stop()
     a=audio('').clear_queue(stop=True)
-    stream_url ='https://www.eysoundtrack.com/resources/audio/moredramaticAMP.mp3'
+    stream_url = get_mp3_urls(globalmoment, more=1) #'https://www.eysoundtrack.com/resources/audio/moredramaticAMP.mp3'
     return audio('') .play(stream_url, shouldEndSession=True, offset=offset)
 
 def get_time():
@@ -83,9 +90,7 @@ def get_time():
 @ask.intent('AMAZON.PauseIntent')
 def pause():
     audio('stopping').clear_queue(stop=True)
-    text='what do you want?'
-    prompt='so, what do you want?'
-    card_title = 'Audio Example'
+    card_title = 'pausing'
     text = 'ok, what do you want?'
     prompt = 'I didnt get it?what do you want?'
     return question(text).reprompt(prompt).simple_card(card_title,text)
@@ -102,6 +107,13 @@ def stop():
 def cancel():
     text='canceling'
     return audio('goodbye').stop()
+
+@ask.intent('AMAZON.HelpIntent')
+def cancel():
+    card_title= 'helpcard'
+    text = 'My soundtrack gives you the perfect soundtrack for every moment. Try to say open my soundtrack for this ... and then the moment or mood you are in!'
+    reprompt = 'Hello?WHy dont you try to say open my soundtrack for this ... and then the moment or mood you are in?'
+    return question(text).reprompt(prompt).simple_card(card_title,text)
 
 # optional callbacks
 @ask.on_playback_started()
