@@ -13,9 +13,9 @@ logging.getLogger('flask_ask').setLevel(logging.INFO)
 
 @ask.launch
 def launch():
-    get_mp3_urls()
+
     card_title = 'Audio Example'
-    text = 'Welcome, what do you want to hear?'
+    text = 'Welcome, I can play the perfect soundtrack for every moment of your life. Ask me to play a song for a moment or an activity.'
     prompt = 'I didnt get it?what do you want to hear?'
     return question(text).reprompt(prompt).simple_card(card_title, text)
 
@@ -23,46 +23,64 @@ def launch():
 def demo(moments):
 
 #handles intent requests based on slot value
-    if moments == "dramatic":
-        speech = 'this is so...dramatic'
-        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/dramaticAMP.mp3'
-    if moments == "morning":
-        speech = 'enjoy your morning!'
-        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/morning.mp3'
-    if moments == "entrance":
-        speech = 'ladies and gentlemen..'
-        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/entrance.mp3'
-    if moments == "boring":
-        speech = 'lets get some energy!'
-        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/conversation.mp3'
-    if moments == "cleaning":
-        speech = 'enjoy your cleaning!'
-        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/cleaning.mp3'
-    if moments == "crowd":
-        speech = 'here we go!'
-        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/crowd.mp3'
-    if moments == "epic":
-        speech = 'this is epic..'
-        stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/epic.mp3'
-    if moments == "coffee":
-        speech = 'enjoy your coffee..'
-        stream_url = get_mp3_urls(moments)
-    # if moments == "happy":
-    #     speech = 'yessss'
-    # stream_url = get_mp3_urls(moments)
+    flag=0
 
-#handles partial or wrong intent requests
-    if moments == '' or moments == None:
-        speech = 'Sorry I didnt get it. could you repeat?'
+    print (moments)
+
+    try:
+        if moments == "dramatic":
+            speech = 'this is so...dramatic'
+            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/dramaticAMP.mp3'
+            flag=1
+        if moments == "morning":
+            speech = 'enjoy your morning!'
+            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/morning.mp3'
+            flag=1
+        if moments == "entrance":
+            speech = 'ladies and gentlemen..'
+            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/entrance.mp3'
+            flag=1
+        if moments == "boring":
+            speech = 'lets get some energy!'
+            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/conversation.mp3'
+            flag=1
+        if moments == "cleaning":
+            speech = 'enjoy your cleaning!'
+            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/cleaning.mp3'
+            flag=1
+        if moments == "crowd":
+            speech = 'here we go!'
+            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/crowd.mp3'
+            flag=1
+        if moments == "epic":
+            speech = 'this is epic..'
+            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/epic.mp3'
+            flag=1
+        if moments == "coffee":
+            speech = 'enjoy your coffee..'
+            stream_url = get_mp3_urls(moments)
+            flag=1
+        if moments == "happy":
+           speech = 'yessss'
+           stream_url = get_mp3_urls(moments)
+    except Exception as e:
+        speech = 'Sorry there are no ' + moments +  ' songs in my database. could you try again?'
         prompt = 'Are you there?'
         card_title = 'Slot error'
-        return question(speech).reprompt(prompt).simple_card(card_title, text)
+        text = 'invalid slot value'
+        flag=1
+        return statement(speech).simple_card(card_title, text)
 
-    if not('speech' in locals()) and not('speech' in globals()):
-        speech = 'Sorry I didnt get it. could you repeat?'
+
+    if flag == 0:
+        speech = 'Sorry I dont have the ' + moments + ' mood or moment in my database. could you try again?'
         prompt = 'Are you there?'
         card_title = 'Slot error'
-        return question(speech).reprompt(prompt).simple_card(card_title, text)
+        text = 'invalid slot value'
+        flag=1
+        return statement(speech).simple_card(card_title, text)
+
+
 
 #define time of playback start for PlayMoreIntent
     global t
