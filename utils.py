@@ -15,12 +15,13 @@ def get_mp3_urls(moments, more=0):
     if more == 0:
         urls=ftp.nlst('webspace/httpdocs/eysoundtrack.com/resources/audio/' + moments)
         randomfile=random.choice(urls)
-        randomurl='https://www.eysoundtrack.com/resources/audio/' + moments + '/' + randomfile.split()[-1]
-    else:
-        urls=ftp.nlst('webspace/httpdocs/eysoundtrack.com/resources/audio/' + moments + '/more/' )
+        randomurl='https://www.eysoundtrack.com/resources/audio/' + moments + '/' + randomfile.split('/')[-1]
+        print(randomurl)
+    if more == 1:
+        urls=ftp.nlst('webspace/httpdocs/eysoundtrack.com/resources/audio/' + moments + 'more' )
         randomfile=random.choice(urls)
-        randomurl='https://www.eysoundtrack.com/resources/audio/' + moments + '/more/' + randomfile.split()[-1]
-    print(randomurl)
+        randomurl='https://www.eysoundtrack.com/resources/audio/' + moments + 'more'  + '/' + randomfile.split('/')[-1]
+        print(randomurl)
     ftp.quit()
 
 #alternatively

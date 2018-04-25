@@ -4,7 +4,7 @@ from utils import *
 import time
 
 from flask import Flask, json, render_template
-from flask_ask import Ask, request, session, question, statement, context, audio, current_stream
+from flask_ask import Ask, request, session, question, statement, context, audio, current_stream, convert_errors
 
 app = Flask(__name__)
 ask = Ask(app, "/")
@@ -13,48 +13,56 @@ logging.getLogger('flask_ask').setLevel(logging.INFO)
 
 @ask.launch
 def launch():
-
+    #Called when the app is launched directly e.g. via "Alexa, open My Soundtrack"
     card_title = 'Audio Example'
-    text = 'Welcome, I can play the perfect soundtrack for every moment of your life. Ask me to play a song for a moment or an activity.'
+    text = 'Welcome, I can play the perfect soundtrack for every moment of your life. Ask me to play a song for a moment or an activity. Or just say that moment or activity.'
     prompt = 'I didnt get it?what do you want to hear?'
     return question(text).reprompt(prompt).simple_card(card_title, text)
 
 @ask.intent('PlayIntent')
 def demo(moments):
-
-#handles intent requests based on slot value
+    """
+    Handles intent requests based on slot value
+    """
+    #This flag is set to zero when the slot (<moment> variable) matches our database.
+    #If the slot is not in our momentsANDmoods database, the flag stays zero and the user is reprompted.
     flag=0
 
     print (moments)
 
+    available_moments={"dramatic" : "this is so...dramatic"}
+    print(available_moments)
+
+    #if something goes wrong when starting playback, the session is ended (see <except> below)
     try:
+
         if moments == "dramatic":
             speech = 'this is so...dramatic'
-            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/dramaticAMP.mp3'
+            stream_url = get_mp3_urls(moments)
             flag=1
         if moments == "morning":
             speech = 'enjoy your morning!'
-            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/morning.mp3'
+            stream_url = get_mp3_urls(moments)
             flag=1
         if moments == "entrance":
             speech = 'ladies and gentlemen..'
-            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/entrance.mp3'
+            stream_url = get_mp3_urls(moments)
             flag=1
-        if moments == "boring":
+        if moments == "conversation":
             speech = 'lets get some energy!'
-            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/conversation.mp3'
+            stream_url = get_mp3_urls(moments)
             flag=1
         if moments == "cleaning":
             speech = 'enjoy your cleaning!'
-            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/cleaning.mp3'
+            stream_url = get_mp3_urls(moments)
             flag=1
         if moments == "crowd":
             speech = 'here we go!'
-            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/crowd.mp3'
+            stream_url = get_mp3_urls(moments)
             flag=1
         if moments == "epic":
             speech = 'this is epic..'
-            stream_url = get_mp3_urls(moments) #'https://www.eysoundtrack.com/resources/audio/epic.mp3'
+            stream_url = get_mp3_urls(moments)
             flag=1
         if moments == "coffee":
             speech = 'enjoy your coffee..'
@@ -63,26 +71,28 @@ def demo(moments):
         if moments == "happy":
            speech = 'yessss'
            stream_url = get_mp3_urls(moments)
+
     except Exception as e:
-        speech = 'Sorry there are no ' + moments +  ' songs in my database. could you try again?'
+        speech = 'Sorry I didnt get it. please start over.'
+        print(e)
         prompt = 'Are you there?'
         card_title = 'Slot error'
         text = 'invalid slot value'
         flag=1
         return statement(speech).simple_card(card_title, text)
 
-
+    #<moment> is not a match in our database
     if flag == 0:
-        speech = 'Sorry I dont have the ' + moments + ' mood or moment in my database. could you try again?'
+        speech = 'Sorry I dont have the ' + moments + ' mood or moment in my database. could you try again?just say the mood or moment and Ill take care of that'
         prompt = 'Are you there?'
         card_title = 'Slot error'
         text = 'invalid slot value'
         flag=1
-        return statement(speech).simple_card(card_title, text)
+        return question(speech).reprompt(prompt).simple_card(card_title, text)
 
 
 
-#define time of playback start for PlayMoreIntent
+    #define time of playback start for PlayMoreIntent
     global t
     t=time.time()
     global globalmoment
@@ -94,12 +104,12 @@ def demo(moments):
 @ask.intent('PlayIntentMore')
 def demo2(moments,mytime=0):
 
-    t2=time.time()
+
     offset=t2-t
     print(offset)
     a=audio('').stop()
     a=audio('').clear_queue(stop=True)
-    stream_url = get_mp3_urls(globalmoment, more=1) #'https://www.eysoundtrack.com/resources/audio/moredramaticAMP.mp3'
+    stream_url = get_mp3_urls(globalmoment, more=1) #
     return audio('') .play(stream_url, shouldEndSession=True, offset=offset)
 
 def get_time():
@@ -107,6 +117,8 @@ def get_time():
 
 @ask.intent('AMAZON.PauseIntent')
 def pause():
+    global t2
+    t2=time.time()
     audio('stopping').clear_queue(stop=True)
     card_title = 'pausing'
     text = 'ok, what do you want?'
@@ -117,9 +129,17 @@ def pause():
 def resume():
     return audio('Resuming.').resume()
 
-@ask.intent('AMAZON.StopIntent')
+@ask.intent('AMAZON.ResumeIntent')
+def resume():
+    return audio('Resuming.').resume()
+
+@ask.intent('AMAZON.NextIntent')
 def stop():
-    return audio('stopping').clear_queue(stop=True)
+    return audio('this function is not available.').resume()
+
+@ask.intent('AMAZON.PreviousIntent')
+def stop():
+    return audio('this function is not available.').resume()
 
 @ask.intent('AMAZON.CancelIntent')
 def cancel():
