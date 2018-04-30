@@ -104,7 +104,6 @@ def demo(moments):
 @ask.intent('PlayIntentMore')
 def demo2(moments,mytime=0):
 
-
     offset=t2-t
     print(offset)
     a=audio('').stop()
@@ -150,7 +149,7 @@ def cancel():
 def cancel():
     card_title= 'helpcard'
     text = 'My soundtrack gives you the perfect soundtrack for every moment. Try to say open my soundtrack for this ... and then the moment or mood you are in!'
-    reprompt = 'Hello?WHy dont you try to say open my soundtrack for this ... and then the moment or mood you are in?'
+    prompt = 'Hello?WHy dont you try to say open my soundtrack for this ... and then the moment or mood you are in?'
     return question(text).reprompt(prompt).simple_card(card_title,text)
 
 # optional callbacks
