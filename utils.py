@@ -48,3 +48,110 @@ def get_mp3_urls(moments, more=0):
     # myfile.close()
 
     return randomurl
+
+def make_ftp_folders():
+    ftp = ftplib.FTP("91.184.0.39")
+    ftp.login("f307123", "8AsREl8I6T7X")
+
+    available_moments=MomentsAndSpeach= {"dramatic" : "	enjoy the drama	" ,
+
+                                     "epic" : "		" ,
+
+                                     "cleaning" : "	enjoy your cleaning	" ,
+
+                                     "boring" : "		" ,
+
+                                     "coffee" : "		" ,
+
+                                     "entry" : "	ladies and gentlemen.. prepare for this entrance	" ,
+
+                                     "entrance" : "	ladies and gentlemen.. prepare for this entrance	" ,
+
+                                     "epic" : "		" ,
+
+                                     "fail" : "		" ,
+
+                                     "funny" : "		" ,
+
+                                     "nap" : "	good night little baby	" ,
+
+                                     "presentation" : "		" ,
+
+                                     "promotion" : "	you rule!	" ,
+
+                                     "ruling" : "		" ,
+
+                                     "run" : "		" ,
+
+                                     "sad" : "		" ,
+
+                                     "hilarious" : "		" ,
+
+                                     "Critical" : "		" ,
+
+                                     "Lame" : "		" ,
+
+                                     "Stupid" : "		" ,
+
+                                     "Cute" : "		" ,
+
+                                     "Extraspecial" : "		" ,
+
+                                     "New" : "		" ,
+
+                                     "Brandnew" : "		" ,
+
+                                     "Fancy" : "		" ,
+
+                                     "Important" : "		" ,
+
+                                     "Noisy" : "		" ,
+
+                                     "Crowded" : "		" ,
+
+                                     "Audience" : "		" ,
+
+                                     "Crowd" : "		" ,
+
+                                     "Office" : "		" ,
+
+                                     "Adventures" : "		" ,
+
+                                     "Awkward" : "		" ,
+
+                                     "happy" : "		" ,
+
+                                     "school" : "		" ,
+
+                                     "work" : "		" ,
+
+                                     "summer" : "		" ,
+
+                                     "winter" : "		" ,
+
+                                     "spring" : "		" ,
+
+                                     "autumn" : "		" ,
+
+                                     "school" : "		" ,
+
+                                     "holliday" : "		" ,
+
+                                     "week" : "		" ,
+
+                                     "day" : "		" ,
+
+                                     "job" : "		" ,
+
+                                     "evening" : "		" ,
+
+                                     "morning" : ""
+
+                                     }
+
+    for moments in available_moments.keys():
+        try:
+            ftp.mkd('webspace/httpdocs/eysoundtrack.com/resources/audio/' + moments)
+        except:
+            continue
+

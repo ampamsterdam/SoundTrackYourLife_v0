@@ -30,50 +30,164 @@ def demo(moments):
 
     print (moments)
 
-    available_moments={"dramatic" : "this is so...dramatic"}
-    print(available_moments)
+    available_moments=MomentsAndSpeach= {"dramatic" : "	enjoy the drama	" ,
+
+                                         "epic" : "		" ,
+
+                                         "cleaning" : "	enjoy your cleaning	" ,
+
+                                         "boring" : "		" ,
+
+                                         "coffee" : "		" ,
+
+                                         "entry" : "	ladies and gentlemen.. prepare for this entrance	" ,
+
+                                         "entrance" : "	ladies and gentlemen.. prepare for this entrance	" ,
+
+                                         "epic" : "		" ,
+
+                                         "fail" : "		" ,
+
+                                         "funny" : "		" ,
+
+                                         "nap" : "	good night little baby	" ,
+
+                                         "presentation" : "		" ,
+
+                                         "promotion" : "	you rule!	" ,
+
+                                         "ruling" : "		" ,
+
+                                         "run" : "		" ,
+
+                                         "sad" : "		" ,
+
+                                         "hilarious" : "		" ,
+
+                                         "Critical" : "		" ,
+
+                                         "Lame" : "		" ,
+
+                                         "Stupid" : "		" ,
+
+                                         "Cute" : "		" ,
+
+                                         "Extraspecial" : "		" ,
+
+                                         "New" : "		" ,
+
+                                         "Brandnew" : "		" ,
+
+                                         "Fancy" : "		" ,
+
+                                         "Important" : "		" ,
+
+                                         "Noisy" : "		" ,
+
+                                         "Crowded" : "		" ,
+
+                                         "Audience" : "		" ,
+
+                                         "Crowd" : "		" ,
+
+                                         "Office" : "		" ,
+
+                                         "Adventures" : "		" ,
+
+                                         "Awkward" : "		" ,
+
+                                         "happy" : "		" ,
+
+                                         "school" : "		" ,
+
+                                         "work" : "		" ,
+
+                                         "summer" : "		" ,
+
+                                         "winter" : "		" ,
+
+                                         "spring" : "		" ,
+
+                                         "autumn" : "		" ,
+
+                                         "school" : "		" ,
+
+                                         "holliday" : "		" ,
+
+                                         "week" : "		" ,
+
+                                         "day" : "		" ,
+
+                                         "job" : "		" ,
+
+                                         "evening" : "		" ,
+
+                                         "morning" : ""
+
+                                         }
 
     #if something goes wrong when starting playback, the session is ended (see <except> below)
     try:
+        if moments in available_moments.keys():
+             speech = available_moments[moments]
+             stream_url = get_mp3_urls(moments)
+             flag=1
 
-        if moments == "dramatic":
-            speech = 'this is so...dramatic'
-            stream_url = get_mp3_urls(moments)
-            flag=1
-        if moments == "morning":
-            speech = 'enjoy your morning!'
-            stream_url = get_mp3_urls(moments)
-            flag=1
-        if moments == "entrance":
-            speech = 'ladies and gentlemen..'
-            stream_url = get_mp3_urls(moments)
-            flag=1
-        if moments == "conversation":
-            speech = 'lets get some energy!'
-            stream_url = get_mp3_urls(moments)
-            flag=1
-        if moments == "cleaning":
-            speech = 'enjoy your cleaning!'
-            stream_url = get_mp3_urls(moments)
-            flag=1
-        if moments == "crowd":
-            speech = 'here we go!'
-            stream_url = get_mp3_urls(moments)
-            flag=1
-        if moments == "epic":
-            speech = 'this is epic..'
-            stream_url = get_mp3_urls(moments)
-            flag=1
-        if moments == "coffee":
-            speech = 'enjoy your coffee..'
-            stream_url = get_mp3_urls(moments)
-            flag=1
-        if moments == "happy":
-           speech = 'yessss'
-           stream_url = get_mp3_urls(moments)
+
+        # if moments == "dramatic":
+        #     speech = 'this is so...dramatic'
+        #     stream_url = get_mp3_urls(moments)
+        #     flag=1
+        # if moments == "morning":
+        #     speech = 'enjoy your morning!'
+        #     stream_url = get_mp3_urls(moments)
+        #     flag=1
+        # if moments == "entrance":
+        #     speech = 'ladies and gentlemen..'
+        #     stream_url = get_mp3_urls(moments)
+        #     flag=1
+        # if moments == "conversation":
+        #     speech = 'lets get some energy!'
+        #     stream_url = get_mp3_urls(moments)
+        #     flag=1
+        # if moments == "cleaning":
+        #     speech = 'enjoy your cleaning!'
+        #     stream_url = get_mp3_urls(moments)
+        #     flag=1
+        # if moments == "crowd":
+        #     speech = 'here we go!'
+        #     stream_url = get_mp3_urls(moments)
+        #     flag=1
+        # if moments == "epic":
+        #     speech = 'this is epic..'
+        #     stream_url = get_mp3_urls(moments)
+        #     flag=1
+        # if moments == "coffee":
+        #     speech = 'enjoy your coffee..'
+        #     stream_url = get_mp3_urls(moments)
+        #     flag=1
+        # if moments == "happy":
+        #    speech = 'yessss'
+        #    stream_url = get_mp3_urls(moments)
+
+    except ftplib.error_temp:
+        speech = 'mmmh' + moments + 'is a great moment but I dont have a perfect soundtrack for that. Try a different one.'
+        prompt = 'Are you there?'
+        card_title = 'database error'
+        text = 'no song'
+        flag=1
+        return question(speech).reprompt(prompt).simple_card(card_title, text)
+
+    except IndexError:
+        speech = 'mmmh' + moments + 'is a great moment but I dont have a perfect soundtrack for that. Try a different one.'
+        prompt = 'Are you there?'
+        card_title = 'database error'
+        text = 'no song'
+        flag=1
+        return question(speech).reprompt(prompt).simple_card(card_title, text)
 
     except Exception as e:
-        speech = 'Sorry I didnt get it. please start over.'
+        speech = 'Sorry I m having some technical difficulties. Please try again.'
         print(e)
         prompt = 'Are you there?'
         card_title = 'Slot error'
@@ -83,14 +197,12 @@ def demo(moments):
 
     #<moment> is not a match in our database
     if flag == 0:
-        speech = 'Sorry I dont have the ' + moments + ' mood or moment in my database. could you try again?just say the mood or moment and Ill take care of that'
+        speech = 'Sorry I dont have the ' + moments + ' moment in my database. Try a different one!Just say the moment and I ll take care of it'
         prompt = 'Are you there?'
         card_title = 'Slot error'
         text = 'invalid slot value'
         flag=1
         return question(speech).reprompt(prompt).simple_card(card_title, text)
-
-
 
     #define time of playback start for PlayMoreIntent
     global t
@@ -128,29 +240,59 @@ def pause():
 def resume():
     return audio('Resuming.').resume()
 
-@ask.intent('AMAZON.ResumeIntent')
-def resume():
-    return audio('Resuming.').resume()
+
 
 @ask.intent('AMAZON.NextIntent')
-def stop():
-    return audio('this function is not available.').resume()
+def nexttrack():
+    return audio('i m sorry, this function is not available for my soundtrack.').resume()
 
 @ask.intent('AMAZON.PreviousIntent')
+def previous():
+    return audio('i m sorry, this function is not available for my soundtrack.').resume()
+
+@ask.intent('AMAZON.LoopOnIntent')
+def loopon():
+    return audio('i m sorry, this function is not available for my soundtrack.').resume()
+
+@ask.intent('AMAZON.LoopOffIntent')
+def loopoff():
+    return audio('i m sorry, this function is not available for my soundtrack.').resume()
+
+@ask.intent('AMAZON.ShufleOnIntent')
+def shuffleoff():
+    return audio('i m sorry, this function is not available for my soundtrack.').resume()
+
+@ask.intent('AMAZON.ShuffleOffIntent')
+def shuffleon():
+    return audio('i m sorry, this function is not available for my soundtrack.').resume()
+
+@ask.intent('AMAZON.RepeatIntent')
+def repeat():
+    return audio('i m sorry, this function is not available for my soundtrack.').resume()
+
+
+@ask.intent('AMAZON.StopIntent')
 def stop():
-    return audio('this function is not available.').resume()
+    speech='goodbye stop'
+    card_title='cancel'
+    text='user quit the skill'
+    return audio(speech).stop()
 
 @ask.intent('AMAZON.CancelIntent')
 def cancel():
-    text='canceling'
-    return audio('goodbye').stop()
+    speech='goodbye cancel'
+    card_title='cancel'
+    text='user quit the skill'
+    return audio(speech).stop()
 
 @ask.intent('AMAZON.HelpIntent')
-def cancel():
+def help():
     card_title= 'helpcard'
-    text = 'My soundtrack gives you the perfect soundtrack for every moment. Try to say open my soundtrack for this ... and then the moment or mood you are in!'
-    prompt = 'Hello?WHy dont you try to say open my soundtrack for this ... and then the moment or mood you are in?'
-    return question(text).reprompt(prompt).simple_card(card_title,text)
+    text = 'Every moment deserves its own soundtrack. With my soundtrack you can add sound to your everyday life. I will help you with how to use this skill .' \
+           'You simply need to tell me:  Alexa, open my soundtrack for.. and tell me what kind of moment you need it for .' \
+           'My entry, this happy moment . or .  my boring meeting... you can try it out now. '
+    #prompt = 'Hello?WHy dont you try to say open my soundtrack for this ... and then the moment or mood you are in?'
+    return statement(text).simple_card(card_title,text)
 
 # optional callbacks
 @ask.on_playback_started()
