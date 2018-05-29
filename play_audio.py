@@ -13,190 +13,192 @@ logging.getLogger('flask_ask').setLevel(logging.INFO)
 
 @ask.launch
 def launch():
-    #Called when the app is launched directly e.g. via "Alexa, open My Soundtrack"
-    card_title = 'Welcome to The Soundtracker!'
-    text = 'Welcome, I can play the perfect soundtrack for every moment of your life. Ask me to play a song for a moment or an activity. Or just say that moment or activity.'
-    prompt = 'I didnt get it?what do you want to hear?'
-    return question(text).reprompt(prompt).simple_card(card_title, text)
+    if session['application']['applicationId'] == 'amzn1.ask.skill.d236f4f0-8062-42bf-b5cd-61b62e3e5bc8':
+        #Called when the app is launched directly e.g. via "Alexa, open My Soundtrack"
+        card_title = 'Welcome to The Soundtracker!'
+        text = 'Welcome, I can play the perfect soundtrack for every moment of your life. Ask me to play a song for a moment or an activity. Or just say that moment or activity.'
+        prompt = 'I didnt get it?what do you want to hear?'
+        return question(text).reprompt(prompt).simple_card(card_title, text)
+    else:
+        return statement('Sorry, your request to the Alexa service comes from an unidentified source.')
 
 @ask.intent('PlayIntent')
 def demo(moments):
     """
     Handles intent requests based on slot value
     """
-    #This flag is set to zero when the slot (<moment> variable) matches our database.
-    #If the slot is not in our momentsANDmoods database, the flag stays zero and the user is reprompted.
-    flag=0
+    if session['application']['applicationId'] == 'amzn1.ask.skill.d236f4f0-8062-42bf-b5cd-61b62e3e5bc8':
 
-    print (moments)
+        #This flag is set to zero when the slot (<moment> variable) matches our database.
+        #If the slot is not in our momentsANDmoods database, the flag stays zero and the user is reprompted.
+        flag=0
 
-    available_moments=MomentsAndSpeach= {"dramatic" : "	enjoy the drama	" ,
+        print (moments)
 
-                                         "epic" : "		" ,
+        available_moments = {'adventures': '',
+                             'afternoon': '',
+                             'answering': '',
+                             'applause': '',
+                             'audience': '',
+                             'autumn': '',
+                             'awkward': '',
+                             'bathroom': '',
+                             'birthday': '',
+                             'boring': '',
+                             'brainstorm': '',
+                             'brandnew': '',
+                             'cleaning': 'enjoy your cleaning',
+                             'coffee': '',
+                             'colleagues': '',
+                             'conference ': '',
+                             'critical': '',
+                             'crowd': '',
+                             'crowded': '',
+                             'cute': '',
+                             'day': '',
+                             'de-stressing': '',
+                             'deadline': '',
+                             'desk': '',
+                             'door': '',
+                             'dramatic': 'enjoy the drama..',
+                             'driving ': '',
+                             'earbuds': '',
+                             'email': '',
+                             'ending ': '',
+                             'entry': 'ladies and gentlemen, prepare for this entrance',
+                             'entrance': 'ladies and gentlemen, prepare for this entrance',
+                             'epic': '',
+                             'evening': '',
+                             'extraspecial': '',
+                             'fail': '',
+                             'fancy': '',
+                             'funny': '',
+                             'garden': '',
+                             'great': '',
+                             'happy': '',
+                             'headphones': '',
+                             'hilarious': '',
+                             'holliday': '',
+                             'ideas': '',
+                             'important': '',
+                             'inbox': '',
+                             'job': '',
+                             'kitchen': '',
+                             'lame': '',
+                             'leaving ': '',
+                             'lines': '',
+                             'lunch': '',
+                             'lunchbox': '',
+                             'meeting': '',
+                             'morning': '',
+                             'nap': 'good night',
+                             'new': '',
+                             'noisy': '',
+                             'notes': '',
+                             'office': '',
+                             'package': '',
+                             'payday': '',
+                             'phone': '',
+                             'phonecall': '',
+                             'plants': '',
+                             'postit ': '',
+                             'presentation': '',
+                             'printer': '',
+                             'promotion': 'you rule!',
+                             'relaxing': '',
+                             'reviewing': '',
+                             'ruling': '',
+                             'run': '',
+                             'sad': '',
+                             'sandwich': '',
+                             'school': '',
+                             'server': '',
+                             'slide': '',
+                             'spring': '',
+                             'stapling': '',
+                             'starting': '',
+                             'stupid': '',
+                             'summer': '',
+                             'tape': '',
+                             'tasks': '',
+                             'tea': '',
+                             'thinking': '',
+                             'timesheets': '',
+                             'toilet': '',
+                             'typing': '',
+                             'week': '',
+                             'window': '',
+                             'winter': '',
+                             'work': '',
+                             'writing': '',
+                             'you': ''}
 
-                                         "cleaning" : "	enjoy your cleaning	" ,
+        built_ins=['exit','quit','enough','shut up','shut down']
+        #
+        # if moments in built_ins:
+        #     return statement('quitting').simple_card('quit', 'byebye')
 
-                                         "boring" : "		" ,
+        #if something goes wrong when starting playback, the session is ended (see <except> below)
+        try:
+            if moments in available_moments.keys():
+                 speech = available_moments[moments]
+                 stream_url = get_mp3_urls(moments)
+                 card_title = 'Artist:'
+                 text = 'Song:'
+                 flag=1
 
-                                         "coffee" : "		" ,
-
-                                         "entry" : "	ladies and gentlemen.. prepare for this entrance	" ,
-
-                                         "entrance" : "	ladies and gentlemen.. prepare for this entrance	" ,
-
-                                         "entering" : "	ladies and gentlemen.. prepare for this entrance	" ,
-
-                                         "epic" : "		" ,
-
-                                         "timesheets" : "",
-
-                                         "fail" : "		" ,
-
-                                         "funny" : "		" ,
-
-                                         "nap" : "	good night little baby	" ,
-
-                                         "presentation" : "		" ,
-
-                                         "promotion" : "	you rule!	" ,
-
-                                         "ruling" : "		" ,
-
-                                         "run" : "		" ,
-
-                                         "sad" : "		" ,
-
-                                         "hilarious" : "		" ,
-
-                                         "critical" : "		" ,
-
-                                         "lame" : "		" ,
-
-                                         "stupid" : "		" ,
-
-                                         "cute" : "		" ,
-
-                                         "extraspecial" : "		" ,
-
-                                         "new" : "		" ,
-
-                                         "brandnew" : "		" ,
-
-                                         "fancy" : "		" ,
-
-                                         "deadlines" : "hurry up..",
-
-                                         "important" : "		" ,
-
-                                         "noisy" : "		" ,
-
-                                         "crowded" : "		" ,
-
-                                         "audience" : "		" ,
-
-                                         "crowd" : "		" ,
-
-                                         "Office" : "		" ,
-
-                                         "Adventures" : "		" ,
-
-                                         "awkward" : "		" ,
-
-                                         "happy" : "		" ,
-
-                                         "school" : "		" ,
-
-                                         "work" : "		" ,
-
-                                         "summer" : "		" ,
-
-                                         "winter" : "		" ,
-
-                                         "spring" : "		" ,
-
-                                         "autumn" : "		" ,
-
-                                         "school" : "		" ,
-
-                                         "holiday" : "		" ,
-
-                                         "week" : "		" ,
-
-                                         "day" : "		" ,
-
-                                         "job" : "		" ,
-
-                                         "evening" : "		" ,
-
-                                         "morning" : "",
-
-                                         "watering" : "",
-
-                                         "plants" : ""
-
-                                         }
-
-    built_ins=['exit','quit','enough','shut up','shut down']
-    #
-    # if moments in built_ins:
-    #     return statement('quitting').simple_card('quit', 'byebye')
-
-    #if something goes wrong when starting playback, the session is ended (see <except> below)
-    try:
-        if moments in available_moments.keys():
-             speech = available_moments[moments]
-             stream_url = get_mp3_urls(moments)
-             flag=1
-
-    except ftplib.error_temp:
-        speech = 'mmmh' + moments + 'is a great moment but I dont have a perfect soundtrack for that. Try a different one.'
-        prompt = 'Are you there?'
-        card_title = 'Ops..I have no songs for your request.'
-        text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
-        flag=1
-        return question(speech).reprompt(prompt).simple_card(card_title, text)
-
-    except IndexError:
-        speech = 'mmmh' + moments + 'is a great moment but I dont have a perfect soundtrack for that. Try a different one.'
-        prompt = 'Are you there?'
-        card_title = 'Ops..I have no songs for your request.'
-        text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
-        flag=1
-        return question(speech).reprompt(prompt).simple_card(card_title, text)
-
-    except Exception as e:
-        speech = 'Sorry I m having some technical difficulties. Please start over.'
-        print(e)
-        prompt = 'Are you there?'
-        card_title = 'Ops..I have no songs for your request.'
-        text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
-        flag=1
-        return statement(speech).simple_card(card_title, text)
-
-    #<moment> is not a match in our database
-    if flag == 0:
-        if moments not in built_ins:
-            try:
-                speech = 'Sorry I dont have the ' + moments + ' moment in my database. Try a different one!Just say the moment and I will take care of it.'
-            except:
-                speech = 'Sorry I dont have that moment in my database, try a different one now.'
+        except ftplib.error_temp:
+            speech = 'mmmh ' + moments + ' is a great moment but I dont have a perfect soundtrack for that. Try a different one.'
             prompt = 'Are you there?'
-            card_title = 'Slot error'
-            text = 'invalid slot value'
+            card_title = 'Ops..I have no songs for your request.'
+            text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
             flag=1
             return question(speech).reprompt(prompt).simple_card(card_title, text)
-        else:
-            print('else!!!!')
-            cancel()
 
-    #define time of playback start for PlayMoreIntent
-    global t
-    t=time.time()
-    global globalmoment
-    globalmoment=moments
-    session.attributes['time']=t
+        except IndexError:
+            speech = 'mmmh ' + moments + ' is a great moment but I dont have a perfect soundtrack for that. Try a different one.'
+            prompt = 'Are you there?'
+            card_title = 'Ops..I have no songs for your request.'
+            text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
+            flag=1
+            return question(speech).reprompt(prompt).simple_card(card_title, text)
 
-    return audio(speech).play(stream_url, shouldEndSession=True, offset=0)
+        except Exception as e:
+            speech = 'Sorry I m having some technical difficulties. Please start over.'
+            print(e)
+            prompt = 'Are you there?'
+            card_title = 'Ops..I have no songs for your request.'
+            text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
+            flag=1
+            return statement(speech).simple_card(card_title, text)
+
+        #<moment> is not a match in our database
+        if flag == 0:
+            if moments not in built_ins:
+                try:
+                    speech = 'Sorry I dont have the ' + moments + ' moment in my database. Try a different one!Just say the moment and I will take care of it.'
+                except:
+                    speech = 'Sorry I dont have that moment in my database, try a different one now.'
+                prompt = 'Are you there?'
+                card_title = 'Input error'
+                text = 'Invalid input value'
+                flag=1
+                return question(speech).reprompt(prompt).simple_card(card_title, text)
+            else:
+                print('no available moments in the database.')
+                cancel()
+
+        #define time of playback start for PlayMoreIntent
+        global t
+        t=time.time()
+        global globalmoment
+        globalmoment=moments
+        session.attributes['time']=t
+
+        return audio(speech).play(stream_url, shouldEndSession=True, offset=0).simple_card(card_title, text)
+
+    else:
+        return statement('Sorry, your request to the Alexa service comes from an unidentified source.')
 
 @ask.intent('PlayIntentMore')
 def demo2(moments,mytime=0):
@@ -224,7 +226,6 @@ def pause():
 @ask.intent('AMAZON.ResumeIntent')
 def resume():
     return audio('Resuming.').resume()
-
 
 
 @ask.intent('AMAZON.NextIntent')
@@ -259,27 +260,27 @@ def repeat():
 @ask.intent('AMAZON.StopIntent')
 def stop():
     speech='goodbye'
-    card_title='cancel'
-    text='user quit the skill'
+    card_title='Stopping.'
+    text='Goodbye'
     return audio(speech).stop()
 
 @ask.intent('AMAZON.CancelIntent')
 def cancel():
     speech='goodbye'
-    card_title='cancel'
-    text='user quit the skill'
+    card_title='Canceling.'
+    text='Goodbye'
     return audio(speech).stop()
 
 @ask.intent('AMAZON.Unhandled')
 def cancel():
     speech='Sorry, I dont know that.'
-    card_title='cancel'
-    text='user quit the skill'
+    card_title='Unhandled intent.'
+    text='This intent is not implemented.'
     return audio(speech).stop()
 
 @ask.intent('AMAZON.HelpIntent')
 def help():
-    card_title= 'helpcard'
+    card_title= 'How to use The Soundtracker.'
     text = 'Every moment deserves its own soundtrack. With my soundtrack you can add sound to your everyday life. I will help you with how to use this skill .' \
            'You simply need to tell me:  Alexa, open my soundtrack for.. and tell me what kind of moment you need it for .' \
            'My entry, this happy moment . or .  my boring meeting... you can try it out now. '
