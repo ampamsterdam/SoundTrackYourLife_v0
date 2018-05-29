@@ -14,7 +14,7 @@ logging.getLogger('flask_ask').setLevel(logging.INFO)
 @ask.launch
 def launch():
     #Called when the app is launched directly e.g. via "Alexa, open My Soundtrack"
-    card_title = 'Audio Example'
+    card_title = 'Welcome to The Soundtracker!'
     text = 'Welcome, I can play the perfect soundtrack for every moment of your life. Ask me to play a song for a moment or an activity. Or just say that moment or activity.'
     prompt = 'I didnt get it?what do you want to hear?'
     return question(text).reprompt(prompt).simple_card(card_title, text)
@@ -44,7 +44,11 @@ def demo(moments):
 
                                          "entrance" : "	ladies and gentlemen.. prepare for this entrance	" ,
 
+                                         "entering" : "	ladies and gentlemen.. prepare for this entrance	" ,
+
                                          "epic" : "		" ,
+
+                                         "timesheets" : "",
 
                                          "fail" : "		" ,
 
@@ -64,37 +68,39 @@ def demo(moments):
 
                                          "hilarious" : "		" ,
 
-                                         "Critical" : "		" ,
+                                         "critical" : "		" ,
 
-                                         "Lame" : "		" ,
+                                         "lame" : "		" ,
 
-                                         "Stupid" : "		" ,
+                                         "stupid" : "		" ,
 
-                                         "Cute" : "		" ,
+                                         "cute" : "		" ,
 
-                                         "Extraspecial" : "		" ,
+                                         "extraspecial" : "		" ,
 
-                                         "New" : "		" ,
+                                         "new" : "		" ,
 
-                                         "Brandnew" : "		" ,
+                                         "brandnew" : "		" ,
 
-                                         "Fancy" : "		" ,
+                                         "fancy" : "		" ,
 
-                                         "Important" : "		" ,
+                                         "deadlines" : "hurry up..",
 
-                                         "Noisy" : "		" ,
+                                         "important" : "		" ,
 
-                                         "Crowded" : "		" ,
+                                         "noisy" : "		" ,
 
-                                         "Audience" : "		" ,
+                                         "crowded" : "		" ,
 
-                                         "Crowd" : "		" ,
+                                         "audience" : "		" ,
+
+                                         "crowd" : "		" ,
 
                                          "Office" : "		" ,
 
                                          "Adventures" : "		" ,
 
-                                         "Awkward" : "		" ,
+                                         "awkward" : "		" ,
 
                                          "happy" : "		" ,
 
@@ -112,7 +118,7 @@ def demo(moments):
 
                                          "school" : "		" ,
 
-                                         "holliday" : "		" ,
+                                         "holiday" : "		" ,
 
                                          "week" : "		" ,
 
@@ -122,9 +128,18 @@ def demo(moments):
 
                                          "evening" : "		" ,
 
-                                         "morning" : ""
+                                         "morning" : "",
+
+                                         "watering" : "",
+
+                                         "plants" : ""
 
                                          }
+
+    built_ins=['exit','quit','enough','shut up','shut down']
+    #
+    # if moments in built_ins:
+    #     return statement('quitting').simple_card('quit', 'byebye')
 
     #if something goes wrong when starting playback, the session is ended (see <except> below)
     try:
@@ -133,76 +148,46 @@ def demo(moments):
              stream_url = get_mp3_urls(moments)
              flag=1
 
-
-        # if moments == "dramatic":
-        #     speech = 'this is so...dramatic'
-        #     stream_url = get_mp3_urls(moments)
-        #     flag=1
-        # if moments == "morning":
-        #     speech = 'enjoy your morning!'
-        #     stream_url = get_mp3_urls(moments)
-        #     flag=1
-        # if moments == "entrance":
-        #     speech = 'ladies and gentlemen..'
-        #     stream_url = get_mp3_urls(moments)
-        #     flag=1
-        # if moments == "conversation":
-        #     speech = 'lets get some energy!'
-        #     stream_url = get_mp3_urls(moments)
-        #     flag=1
-        # if moments == "cleaning":
-        #     speech = 'enjoy your cleaning!'
-        #     stream_url = get_mp3_urls(moments)
-        #     flag=1
-        # if moments == "crowd":
-        #     speech = 'here we go!'
-        #     stream_url = get_mp3_urls(moments)
-        #     flag=1
-        # if moments == "epic":
-        #     speech = 'this is epic..'
-        #     stream_url = get_mp3_urls(moments)
-        #     flag=1
-        # if moments == "coffee":
-        #     speech = 'enjoy your coffee..'
-        #     stream_url = get_mp3_urls(moments)
-        #     flag=1
-        # if moments == "happy":
-        #    speech = 'yessss'
-        #    stream_url = get_mp3_urls(moments)
-
     except ftplib.error_temp:
         speech = 'mmmh' + moments + 'is a great moment but I dont have a perfect soundtrack for that. Try a different one.'
         prompt = 'Are you there?'
-        card_title = 'database error'
-        text = 'no song'
+        card_title = 'Ops..I have no songs for your request.'
+        text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
         flag=1
         return question(speech).reprompt(prompt).simple_card(card_title, text)
 
     except IndexError:
         speech = 'mmmh' + moments + 'is a great moment but I dont have a perfect soundtrack for that. Try a different one.'
         prompt = 'Are you there?'
-        card_title = 'database error'
-        text = 'no song'
+        card_title = 'Ops..I have no songs for your request.'
+        text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
         flag=1
         return question(speech).reprompt(prompt).simple_card(card_title, text)
 
     except Exception as e:
-        speech = 'Sorry I m having some technical difficulties. Please try again.'
+        speech = 'Sorry I m having some technical difficulties. Please start over.'
         print(e)
         prompt = 'Are you there?'
-        card_title = 'Slot error'
-        text = 'invalid slot value'
+        card_title = 'Ops..I have no songs for your request.'
+        text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
         flag=1
         return statement(speech).simple_card(card_title, text)
 
     #<moment> is not a match in our database
     if flag == 0:
-        speech = 'Sorry I dont have the ' + moments + ' moment in my database. Try a different one!Just say the moment and I ll take care of it'
-        prompt = 'Are you there?'
-        card_title = 'Slot error'
-        text = 'invalid slot value'
-        flag=1
-        return question(speech).reprompt(prompt).simple_card(card_title, text)
+        if moments not in built_ins:
+            try:
+                speech = 'Sorry I dont have the ' + moments + ' moment in my database. Try a different one!Just say the moment and I will take care of it.'
+            except:
+                speech = 'Sorry I dont have that moment in my database, try a different one now.'
+            prompt = 'Are you there?'
+            card_title = 'Slot error'
+            text = 'invalid slot value'
+            flag=1
+            return question(speech).reprompt(prompt).simple_card(card_title, text)
+        else:
+            print('else!!!!')
+            cancel()
 
     #define time of playback start for PlayMoreIntent
     global t
@@ -258,7 +243,7 @@ def loopon():
 def loopoff():
     return audio('i m sorry, this function is not available for my soundtrack.').resume()
 
-@ask.intent('AMAZON.ShufleOnIntent')
+@ask.intent('AMAZON.ShuffleOnIntent')
 def shuffleoff():
     return audio('i m sorry, this function is not available for my soundtrack.').resume()
 
@@ -273,14 +258,21 @@ def repeat():
 
 @ask.intent('AMAZON.StopIntent')
 def stop():
-    speech='goodbye stop'
+    speech='goodbye'
     card_title='cancel'
     text='user quit the skill'
     return audio(speech).stop()
 
 @ask.intent('AMAZON.CancelIntent')
 def cancel():
-    speech='goodbye cancel'
+    speech='goodbye'
+    card_title='cancel'
+    text='user quit the skill'
+    return audio(speech).stop()
+
+@ask.intent('AMAZON.Unhandled')
+def cancel():
+    speech='Sorry, I dont know that.'
     card_title='cancel'
     text='user quit the skill'
     return audio(speech).stop()
