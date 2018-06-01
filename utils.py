@@ -4,24 +4,27 @@ import numpy as np
 from ftplib import FTP_TLS
 import ftplib
 import random
+import pickle
 import numpy as np
 
 def get_mp3_urls(moments, more=0):
 
 #connect to the ftp server and lists the tracks names in the database
-    ftp = ftplib.FTP("91.184.0.39")
-    ftp.login("f307123", "8AsREl8I6T7X")
+    # ftp = ftplib.FTP("91.184.0.39")
+    # ftp.login("f307123", "8AsREl8I6T7X")
+    ftp = ftplib.FTP(pickle.load(open('config.pkl', 'rb'))['a'])
+    ftp.login(pickle.load(open('config.pkl', 'rb'))['b'], pickle.load(open('config.pkl', 'rb'))['c'])
 
     if more == 0:
         urls=ftp.nlst('webspace/httpdocs/eysoundtrack.com/resources/audio/' + moments)
         randomfile=random.choice(urls)
         randomurl='https://www.eysoundtrack.com/resources/audio/' + moments + '/' + randomfile.split('/')[-1]
-        print(randomurl)
+
     if more == 1:
         urls=ftp.nlst('webspace/httpdocs/eysoundtrack.com/resources/audio/' + moments + 'more' )
         randomfile=random.choice(urls)
         randomurl='https://www.eysoundtrack.com/resources/audio/' + moments + 'more'  + '/' + randomfile.split('/')[-1]
-        print(randomurl)
+
     ftp.quit()
 
 #alternatively

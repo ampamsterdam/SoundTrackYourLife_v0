@@ -230,32 +230,35 @@ def resume():
 
 @ask.intent('AMAZON.NextIntent')
 def nexttrack():
-    return audio('i m sorry, this function is not available for my soundtrack.').resume()
+    return audio('i m sorry, this function is not available for The Soundtracker.').resume()
 
 @ask.intent('AMAZON.PreviousIntent')
 def previous():
-    return audio('i m sorry, this function is not available for my soundtrack.').resume()
+    return audio('i m sorry, this function is not available for The Soundtracker.').resume()
 
 @ask.intent('AMAZON.LoopOnIntent')
 def loopon():
-    return audio('i m sorry, this function is not available for my soundtrack.').resume()
+    return audio('i m sorry, this function is not available for The Soundtracker.').resume()
 
 @ask.intent('AMAZON.LoopOffIntent')
 def loopoff():
-    return audio('i m sorry, this function is not available for my soundtrack.').resume()
+    return audio('i m sorry, this function is not available for The Soundtracker.').resume()
 
 @ask.intent('AMAZON.ShuffleOnIntent')
 def shuffleoff():
-    return audio('i m sorry, this function is not available for my soundtrack.').resume()
+    return audio('i m sorry, this function is not available for The Soundtracker.').resume()
 
 @ask.intent('AMAZON.ShuffleOffIntent')
 def shuffleon():
-    return audio('i m sorry, this function is not available for my soundtrack.').resume()
+    return audio('i m sorry, this function is not available for The Soundtracker.').resume()
 
 @ask.intent('AMAZON.RepeatIntent')
 def repeat():
-    return audio('i m sorry, this function is not available for my soundtrack.').resume()
+    return audio('i m sorry, this function is not available for The Soundtracker.').resume()
 
+@ask.intent('AMAZON.StartOverIntent ')
+def repeat():
+    return audio('i m sorry, this function is not available for The Soundtracker.').resume()
 
 @ask.intent('AMAZON.StopIntent')
 def stop():
