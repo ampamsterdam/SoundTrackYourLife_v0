@@ -198,14 +198,14 @@ def demo(moments):
             flag=1
             return question(speech).reprompt(prompt).simple_card(card_title, text)
 
-        except Exception as e:
-            speech = 'Sorry I m having some technical difficulties. Please start over.'
-            print(e)
-            prompt = 'Are you there?'
-            card_title = 'Ops..I have no songs for your request.'
-            text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
-            flag=1
-            return statement(speech).simple_card(card_title, text)
+        # except Exception as e:
+        #     speech = 'Sorry I m having some technical difficulties. Please start over.'
+        #     print(e)
+        #     prompt = 'Are you there?'
+        #     card_title = 'Ops..I have no songs for your request.'
+        #     text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
+        #     flag=1
+        #     return statement(speech).simple_card(card_title, text)
 
         #<moment> is not a match in our database
         if flag == 0:
@@ -230,7 +230,7 @@ def demo(moments):
         globalmoment=moments
         session.attributes['time']=t
 
-        return audio(speech).play(stream_url, shouldEndSession=True, offset=0).simple_card(card_title, text)
+        return audio(speech).play(stream_url, offset=0).simple_card(card_title, text)
 
     else:
         return statement('Sorry, your request to the Alexa service comes from an unidentified source.')
@@ -243,7 +243,7 @@ def demo2(moments,mytime=0):
     a=audio('').stop()
     a=audio('').clear_queue(stop=True)
     stream_url = get_mp3_urls(globalmoment, more=1) #
-    return audio('') .play(stream_url, shouldEndSession=True, offset=offset)
+    # return audio('') .play(stream_url, offset=offset)
 
 def get_time():
     return t
@@ -252,7 +252,7 @@ def get_time():
 def pause():
     global t2
     t2=time.time()
-    audio('stopping').clear_queue(stop=True)
+    audio().clear_queue(stop=True)
     card_title = 'pausing'
     text = 'ok, what do you want?'
     prompt = 'I didnt get it?what do you want?'
