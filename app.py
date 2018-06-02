@@ -181,13 +181,14 @@ def demo(moments):
                  text = 'Song:'
                  flag=1
         #
-        # except ftplib.error_temp:
-        #     speech = 'mmm ' + moments + ' is a great moment but I dont have a perfect soundtrack for that. Try a different one.'
-        #     prompt = 'Are you there?'
-        #     card_title = 'Ops..I have no songs for your request.'
-        #     text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
-        #     flag=1
-        #     return question(speech).reprompt(prompt).simple_card(card_title, text)
+        except ftplib.error_temp:
+            #speech = 'mmm ' + moments + ' is a great moment but I dont have a perfect soundtrack for that. Try a different one.'
+            speech='cazzoooo'
+            prompt = 'Are you there?'
+            card_title = 'Ops..I have no songs for your request.'
+            text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
+            flag=1
+            return question(speech).reprompt(prompt).simple_card(card_title, text)
 
         except IndexError:
             speech = 'mmm ' + moments + ' is a great moment but I dont have a perfect soundtrack for that. Try a different one.'
