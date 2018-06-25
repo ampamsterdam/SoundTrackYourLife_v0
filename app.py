@@ -6,7 +6,6 @@ from flask_ask import Ask, session, question, statement, audio, current_stream
 import ftplib
 import random
 
-
 def get_mp3_urls(moments, more=0):
 
     #connect to the ftp server and lists the tracks names in the database
@@ -59,7 +58,7 @@ def launch():
 @ask.intent('PlayIntent')
 def demo(moments):
     """
-    Handles intent requests based on slot value
+    Handles intent requests based on moment slot value
     """
     if session['application']['applicationId'] == 'amzn1.ask.skill.d236f4f0-8062-42bf-b5cd-61b62e3e5bc8':
 
@@ -198,14 +197,14 @@ def demo(moments):
             flag=1
             return question(speech).reprompt(prompt).simple_card(card_title, text)
 
-        # except Exception as e:
-        #     speech = 'Sorry I m having some technical difficulties. Please start over.'
-        #     print(e)
-        #     prompt = 'Are you there?'
-        #     card_title = 'Ops..I have no songs for your request.'
-        #     text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
-        #     flag=1
-        #     return statement(speech).simple_card(card_title, text)
+        except Exception as e:
+            speech = 'Sorry I m having some technical difficulties. Please start over.'
+            print(e)
+            prompt = 'Are you there?'
+            card_title = 'Ops..I have no songs for your request.'
+            text = 'Could not find a song for your request in The Soundtracker database. But your input will be used to improve the database, so try again in a few days!'
+            flag=1
+            return statement(speech).simple_card(card_title, text)
 
         #<moment> is not a match in our database
         if flag == 0:

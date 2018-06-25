@@ -53,105 +53,109 @@ def make_ftp_folders():
     ftp = ftplib.FTP("91.184.0.39")
     ftp.login("f307123", "8AsREl8I6T7X")
 
-    available_moments=MomentsAndSpeach= {"dramatic" : "	enjoy the drama	" ,
+    available_moments = {'adventures': '',
+                         'afternoon': '',
+                         'answering': '',
+                         'applause': '',
+                         'audience': '',
+                         'autumn': '',
+                         'awkward': '',
+                         'bathroom': '',
+                         'birthday': '',
+                         'boring': '',
+                         'brainstorm': '',
+                         'brandnew': '',
+                         'cleaning': 'enjoy your cleaning',
+                         'coffee': '',
+                         'colleagues': '',
+                         'conference ': '',
+                         'critical': '',
+                         'crowd': '',
+                         'crowded': '',
+                         'cute': '',
+                         'day': '',
+                         'de-stressing': '',
+                         'deadline': '',
+                         'desk': '',
+                         'door': '',
+                         'dramatic': 'enjoy the drama..',
+                         'driving ': '',
+                         'earbuds': '',
+                         'email': '',
+                         'ending ': '',
+                         'entry': 'ladies and gentlemen, prepare for this entrance',
+                         'entrance': 'ladies and gentlemen, prepare for this entrance',
+                         'epic': '',
+                         'evening': '',
+                         'extraspecial': '',
+                         'fail': '',
+                         'fancy': '',
+                         'funny': '',
+                         'garden': '',
+                         'great': '',
+                         'happy': '',
+                         'headphones': '',
+                         'hilarious': '',
+                         'holliday': '',
+                         'ideas': '',
+                         'important': '',
+                         'inbox': '',
+                         'job': '',
+                         'kitchen': '',
+                         'lame': '',
+                         'leaving ': '',
+                         'lines': '',
+                         'lunch': '',
+                         'lunchbox': '',
+                         'meeting': '',
+                         'morning': '',
+                         'nap': 'good night',
+                         'new': '',
+                         'noisy': '',
+                         'notes': '',
+                         'office': '',
+                         'package': '',
+                         'payday': '',
+                         'phone': '',
+                         'phonecall': '',
+                         'plants': '',
+                         'postit ': '',
+                         'presentation': '',
+                         'printer': '',
+                         'promotion': 'you rule!',
+                         'relaxing': '',
+                         'reviewing': '',
+                         'ruling': '',
+                         'run': '',
+                         'sad': '',
+                         'sandwich': '',
+                         'school': '',
+                         'server': '',
+                         'slide': '',
+                         'spring': '',
+                         'stapling': '',
+                         'starting': '',
+                         'stupid': '',
+                         'summer': '',
+                         'tape': '',
+                         'tasks': '',
+                         'tea': '',
+                         'thinking': '',
+                         'timesheets': '',
+                         'toilet': '',
+                         'typing': '',
+                         'week': '',
+                         'window': '',
+                         'winter': '',
+                         'work': '',
+                         'writing': '',
+                         'you': ''}
 
-                                     "epic" : "		" ,
-
-                                     "cleaning" : "	enjoy your cleaning	" ,
-
-                                     "boring" : "		" ,
-
-                                     "coffee" : "		" ,
-
-                                     "entry" : "	ladies and gentlemen.. prepare for this entrance	" ,
-
-                                     "entrance" : "	ladies and gentlemen.. prepare for this entrance	" ,
-
-                                     "epic" : "		" ,
-
-                                     "fail" : "		" ,
-
-                                     "funny" : "		" ,
-
-                                     "nap" : "	good night little baby	" ,
-
-                                     "presentation" : "		" ,
-
-                                     "promotion" : "	you rule!	" ,
-
-                                     "ruling" : "		" ,
-
-                                     "run" : "		" ,
-
-                                     "sad" : "		" ,
-
-                                     "hilarious" : "		" ,
-
-                                     "Critical" : "		" ,
-
-                                     "Lame" : "		" ,
-
-                                     "Stupid" : "		" ,
-
-                                     "Cute" : "		" ,
-
-                                     "Extraspecial" : "		" ,
-
-                                     "New" : "		" ,
-
-                                     "Brandnew" : "		" ,
-
-                                     "Fancy" : "		" ,
-
-                                     "Important" : "		" ,
-
-                                     "Noisy" : "		" ,
-
-                                     "Crowded" : "		" ,
-
-                                     "Audience" : "		" ,
-
-                                     "Crowd" : "		" ,
-
-                                     "Office" : "		" ,
-
-                                     "Adventures" : "		" ,
-
-                                     "Awkward" : "		" ,
-
-                                     "happy" : "		" ,
-
-                                     "school" : "		" ,
-
-                                     "work" : "		" ,
-
-                                     "summer" : "		" ,
-
-                                     "winter" : "		" ,
-
-                                     "spring" : "		" ,
-
-                                     "autumn" : "		" ,
-
-                                     "school" : "		" ,
-
-                                     "holliday" : "		" ,
-
-                                     "week" : "		" ,
-
-                                     "day" : "		" ,
-
-                                     "job" : "		" ,
-
-                                     "evening" : "		" ,
-
-                                     "morning" : ""
-
-                                     }
 
     for moments in available_moments.keys():
         try:
             ftp.mkd('webspace/httpdocs/eysoundtrack.com/resources/audio/' + moments)
-        except:
+        except Exception as e:
+            print(e)
             continue
 
