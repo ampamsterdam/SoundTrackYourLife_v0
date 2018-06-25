@@ -81,7 +81,7 @@ for n in range(len(localdirs_roots)):
             if ftp.pwd().split('/')[-1] == localdirs_roots[n].split('/')[-1]:
                 ftp.storbinary('STOR %s'%file , fh) #upload file
             fh.close()
-
+######
 
 
 
